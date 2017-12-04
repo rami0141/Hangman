@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	
+	<title>The Psychic Game</title>
+</head>
+<body>
+
+	<div id="game">
+	<p>Wins</p>
+	<p>Current Word</p>
+	<p>Number of Guesses Remaining</p>
+	<p>Letters Already Guessed</p>
+	</div>
+
+<script type="text/javascript">
+
+var wins = 0;
+var guessesRemaining = 13;
+var words = ["poodle", "dachshund", "retriever", "pitbull", "terrier", "coonhound", "huskie"];
+var guessesSoFar = [];
+var newArray = [];
+
+
+var randomWord = "poodle";
+for (i=0; i < randomWord.length; i++) {
+	newArray.push("_");
+
+}
+
+
+document.onkeyup = function(event) {
+
+var userGuess = event.key;
+guessesSoFar.push(userGuess);
+
+
+
+if (randomWord.indexOf(userGuess) >= 0 ) {
+	var ui = randomWord.indexOf(userGuess);
+	newArray.splice(ui,ui,userGuess);
+
+} else {
+	guessesRemaining--;
+}
+
+
+if (guessesRemaining === 0) {
+	guessesRemaining = 13;
+	guessesSoFar = [];
+	
+} 
+
+
+
+ var html =
+          "<p>Wins " + wins + "</p>" +
+          "<p>Current Word " + newArray + "</p>" +
+          "<p>Number of Guesses Remaining " + guessesRemaining + "</p>" +
+   
+          "<p>Letters Already Guessed " + guessesSoFar + "</p>";
+
+
+ document.querySelector("#game").innerHTML = html;
+};
+	</script>
+
+
+</body>
+</html>
