@@ -4,7 +4,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	
-	<title>The Psychic Game</title>
+	<title>Hangman</title>
 </head>
 <body>
 
@@ -15,54 +15,51 @@
 	<p>Letters Already Guessed</p>
 	</div>
 
+
+
 <script type="text/javascript">
+
 
 var wins = 0;
 var guessesRemaining = 13;
 var words = ["poodle", "dachshund", "retriever", "pitbull", "terrier", "coonhound", "huskie"];
 var guessesSoFar = [];
 var newArray = [];
+var randomWord = words[Math.floor(Math.random() * words.length)];
+var rw = randomWord.split('');
 
 
-var randomWord = "poodle";
-for (i=0; i < randomWord.length; i++) {
+for (i=0; i < rw.length; i++) {
 	newArray.push("_");
 
 }
 
 
-document.onkeyup = function(event) {
 
-var userGuess = event.key;
+document.onkeyup = function(event) {
+var userGuess = event.key.toLowerCase();
 guessesSoFar.push(userGuess);
 
-
-
-if (randomWord.indexOf(userGuess) >= 0 ) {
-	var ui = randomWord.indexOf(userGuess);
-	newArray.splice(ui,ui,userGuess);
-
+if (rw.indexOf(userGuess) >= 0 ) {
+	var ui = rw.indexOf(userGuess);
+	newArray[ui] = userGuess;
+	rw[ui] = "_";
 } else {
 	guessesRemaining--;
 }
-
-
 if (guessesRemaining === 0) {
 	guessesRemaining = 13;
-	guessesSoFar = [];
+	guessesSoFar = []
+	var randomWord = words[Math.floor(Math.random() * words.length)];
 	
 } 
 
-
-
  var html =
           "<p>Wins " + wins + "</p>" +
-          "<p>Current Word " + newArray + "</p>" +
+          "<p>Current Word " + newArray.join("  ") + "</p>" +
           "<p>Number of Guesses Remaining " + guessesRemaining + "</p>" +
-   
           "<p>Letters Already Guessed " + guessesSoFar + "</p>";
-
-
+ 
  document.querySelector("#game").innerHTML = html;
 };
 	</script>
